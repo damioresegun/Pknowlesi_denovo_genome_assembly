@@ -139,8 +139,8 @@ docker run -u $(id -u) -v $(pwd):/busco_wd ezlabgva/busco:v5.0.0_cv1
   - **FLOWCELL**: Enter the flowcell version you have used e.g. `"FLO-MIN106"`. This is needed for basecalling
   - **THREADS**: Number of threads to use e.g `"32"`
   - **KMER**: Kmer length to use to process files. However, this is only necessary if you are carrying out genomescope/jellyfish of your Illumina reads. *Note: kmer length should only be odd numbers. This pipeline was tuned with a kmer length of 27* e.g. `"27"`
-  - **SPEC**: State the species (or closest species) that has been trained on Augustus. List can be found here: `[Funannotate Commands — Funannotate 1.7.0 documentation](https://funannotate.readthedocs.io/en/latest/commands.html#funannotate-species)` e.g. `"pfalciparum"`
+  - **SPEC**: State the species (or closest species) that has been trained on Augustus e.g. `"pfalciparum"`. List can be found here: https://funannotate.readthedocs.io/en/latest/commands.html#funannotate-species` 
   - **ONT**: Enter the full path the the 'bin' of the guppy package you have downloaded e.g. `/path/to/ont-guppy/bin`
   - **blastDATA**: 
   - **busDock**: Enter full path to the docker image for the busco tool e.g. `"/path/to/busco_v5.0.0_cv1.sif"`
-  - **LINEAGE**: Enter the lineage library you wish to use for busco e.g. `"plasmodium_odb10"` To see the full list available, go to: `[Index of /v5/data/lineages/](https://busco-data.ezlab.org/v5/data/lineages/)`.  
+  - **LINEAGE**: Enter the lineage library you wish to use for busco e.g. `"plasmodium_odb10"` To see the full list available, go to: https://busco-data.ezlab.org/v5/data/lineages/  
