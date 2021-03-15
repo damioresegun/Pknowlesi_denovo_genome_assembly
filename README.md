@@ -65,36 +65,49 @@ The completed genomes generated from this pipeline was uploaded to ... with acce
 - The yaml files "Main_pipeline.yml", "Medaka_env.yml", "Blobtools_env.yml", "Quast_env.yml", "Pomoxis_env.yml" contain lists of tools and the versions which have been tested with this build of the pipeline.
 - Install with `conda env update -n test_env --file pipeline.yml`
 - In some cases, the conda yaml installation may not work due to unsolvable conflicts. If this occurs, here are the tools and versions you can download from conda.
-  - Note: I w
-  - Main_pipeline.yml:
-    - assembly-stats v1.0.1
-    - bedtools v2.30
-    - bioawk v1.0
-    - cd-hit v4.8.1
-    - flye v2.8.3
-    - genometools v1.6.1
-    - jellyfish v2.2.10
-    - minimap2 v2.17
-    - pigz v2.5
-    - pilon v1.23
-    - porechop v0.2.4
-    - pv v1.6.6
-    - qcat v1.1.0
-    - racon v1.4.20
-    - ragtag v1.1.1
-    - repeatmasker v4.1.1
-    - repeatmodeler v2.0.1
-    - samtools v1.11
-    - seqkit v0.15.0
-  - Blobtools_env.yml:
-    - blobtools v1.1.1
-    - minimap2 v2.17
-  - Medaka_env.yml:
-  - Pomoxis_env.yml:
-    - pomoxis v0.2.5
-  - Quast_env.yml:
-    - quast v5.0.2
-  - 
+  - Note: I would suggest installing the tools in different environments as stated below in the order stated
+  - Main pipeline environment
+      | **Tools**      | **Version** |
+      | -------------- | ----------- |
+      | qcat           | 1.1.0       |
+      | samtools       | 1.11        |
+      | minimap2       | 2.17        |
+      | pigz           | 2.5         |
+      | assembly-stats | 1.0.1       |
+      | porechop       | 0.2.4       |
+      | pilon          | 1.23        |
+      | racon          | 1.4.20      |
+      | flye           | 2.8.3       |
+      | jellyfish      | 2.2.10      |
+      | bedtools       | 2.30        |
+      | ragtag         | 1.1.1       |
+      | bioawk         | 1.0         |
+      | seqkit         | 0.15.0      |
+  - Blobtools environment
+      | **Tools** | **Version** |
+      | --------- | ----------- |
+      | blobtools | 1.1.1       |
+      | minimap2  | 2.17        |
+  - Medaka environment
+      | **Tools** | **Version** |
+      | --------- | ----------- |
+      | medaka    | 1.1.1       |
+  - Pomoxis environment
+      | **Tools** | **Version** |
+      | --------- | ----------- |
+      | pomoxis   | 0.2.5       |
+  - Quast environment
+      | **Tools** | **Version** |
+      | --------- | ----------- |
+      | quast     | 5.0.2       | 
+  - RepeatMasking environment
+      | **Tools**      | **Version** |
+      | -------------- | ----------- |
+      | repeatmasker   | 4.1.1       |
+      | repeatmodeler  | 2.0.1       |
+      | cd-hit         | 4.8.1       |
+      | genometools    | 1.6.1       |   
+
 ### Other tools not on Conda
 - **Guppy**: Down and install the version which suits your preference from the Nanopore Community site. This pipeline has been tested with **version 4.0.15**
 - **Busco** docker image:
