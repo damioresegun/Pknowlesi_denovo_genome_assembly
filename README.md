@@ -4,14 +4,42 @@
 - [P.knowlesi de novo genome assembly](#Pknowlesi-de-novo-genome-assembly)
   * [Abstract](#Abstract)
   * [How to Cite](#How-to-Cite)
-  * [Table of Contents](#Table-of-Contents)
   * [Data Access](#Data-Access)
   * [Installation](#Installation)
     + [Processing](#Processing)
     + [Conda](#Conda)
     + [Other tools not on Conda](#Other-tools-not-on-Conda)
-    + [Pipeline](#Pipeline)
-      - [Preparation](#Preparation)
+    + [Script and Pipeline Preparation](#Script-and-Pipeline-Preparation)
+  * [Pipeline](#Pipeline)
+    + [Data Preparation](#Data-Preparation)
+      - [Basecalling](#Basecalling)
+      - [Demultiplexing](#Demultiplexing)
+      - [Adapter Removal](#Adapter-Removal)
+      - [Checks](#Checks)
+    + [De Novo Assembly](#De-Novo-Assembly)
+      - [Alignment](#Alignment)
+      - [De novo assembly](#De-novo-assembly)
+      - [Genome size estimation](#Genome-size-estimation)
+      - [Decontamination](#Decontamination)
+    + [Correction and Polishing](#Correction-and-Polishing)
+      - [Racon Polishing](#Racon-Polishing)
+      - [Medaka Correction](#Medaka-Correction)
+      - [Pilon Correction](#Pilon-Correction)
+    + [[Optional *but recommended*]: Apicoplast and Mitochondrial Separation and Circlarisation](#Optional-but-recommended-Apicoplast-and-Mitochondrial-Separation-and-Circlarisation)
+      - [Remove API and MIT](#Remove-API-and-MIT)
+    + [RepeatMasking](#RepeatMasking)
+      - [RepeatMasking](#RepeatMasking-1)
+      - [De-chrimerisation](#De-chrimerisation)
+    + [Quality Assessment](#Quality-Assessment)
+      - [QUAST](#QUAST)
+      - [BUSCO](#BUSCO)
+      - [Pomoxis](#Pomoxis)
+      - [Assembly-stats](#Assembly-stats)
+    + [Ready for annotation](#Ready-for-annotation)
+  * [FAQ](#FAQ)
+    + [I haven’t used barcodes. What do I do?](#I-haven’t-used-barcodes-What-do-I-do)
+  * [Acknowledgements](#Acknowledgements)
+  * [References](#References)
 
 <!-- tocstop -->
 # P.knowlesi de novo genome assembly
@@ -25,76 +53,48 @@ Please be aware that the first portion of this script is tuned for barcoded ONT 
 
 ## How to Cite
 
-## Table of Contents
-- Abstract
-- How to Cite
-- Table of Contents
-- Data Access
-- Installation
-  - Processing
-	- Conda YAML files
-	- Other Tools not on Conda
-- Pipeline
-	- Preparation
-	- Basecalling
-	- Demultiplexing
-	- Adapter Removal
-	- Checks
-	- Alignment
-	- De novo assembly
-	- Genome size estimation
-	- Decontamination
-	- Racon Polishing
-	- Medaka Correction
-	- Pilon Correction
-	- Remove API and MIT
-	- RepeatMasking
-	- De-chrimerisation
-	- Quality Assessment
-		- QUAST
-		- BUSCO
-		- Pomoxis
-		- Assembly-stats
-	- Ready for annotation
-	- FAQ
-  	- I haven't used barcodes. What do I do?
-	- Acknowledgements
-	- References
 ## Data Access
 The completed genomes generated from this pipeline was uploaded to ... with accession code...
-Requirements:
 ## Installation
 ### Processing
 - You will need a GPU in order to carry out basecalling! CPU only basecalling while available for Guppy is simply too slow for this pipeline. This pipeline was developed using an NVIDIA GTX1060 with 6GB of VRAM. 
-- Other NVIDIA GPUs are likely to work as long as 
+- Other NVIDIA GPUs are likely to work as long as they have at least **NVIDIA driver version 455 and NVIDIA compute version 6.1**. It is advised that you follow the guppy installation guide on the Oxford Nanopore Community website
 
 ### Conda
 - First and foremost, you will need conda in order to install the vast majority of tools used in this pipeline
-- The yaml file "pipeline.yml" contains a list of tools and the versions which have been tested with this build of the pipeline.
+- The yaml files "Main_pipeline.yml", "Medaka_env.yml", "Blobtools_env.yml", "Quast_env.yml", "Pomoxis_env.yml" contain lists of tools and the versions which have been tested with this build of the pipeline.
 - Install with `conda env update -n test_env --file pipeline.yml`
-- In some cases, the conda yaml installation may not work due to unsolvable conflicts. If this occurs, here are the tools and versions you can download from cond:a
-  - assembly-stats v1.0.1
-  - bedtools v2.30
-  - bioawk v1.0
-  - blobtools v1.1.1
-  - cd-hit v4.8.1
-  - flye v2.8.3
-  - genometools v1.6.1
-  - jellyfish v2.2.10
-  - minimap2 v2.17
-  - pigz v2.5
-  - pilon v1.23
-  - pomoxis v0.2.5
-  - porechop v0.2.4
-  - pv v1.6.6
-  - qcat v1.1.0
-  - quast v5.0.2
-  - racon v1.4.20
-  - ragtag v1.1.1
-  - repeatmasker v4.1.1
-  - repeatmodeler v2.0.1
-  - samtools v1.11
-  - seqkit v0.15.0
+- In some cases, the conda yaml installation may not work due to unsolvable conflicts. If this occurs, here are the tools and versions you can download from conda.
+  - Note: I w
+  - Main_pipeline.yml:
+    - assembly-stats v1.0.1
+    - bedtools v2.30
+    - bioawk v1.0
+    - cd-hit v4.8.1
+    - flye v2.8.3
+    - genometools v1.6.1
+    - jellyfish v2.2.10
+    - minimap2 v2.17
+    - pigz v2.5
+    - pilon v1.23
+    - porechop v0.2.4
+    - pv v1.6.6
+    - qcat v1.1.0
+    - racon v1.4.20
+    - ragtag v1.1.1
+    - repeatmasker v4.1.1
+    - repeatmodeler v2.0.1
+    - samtools v1.11
+    - seqkit v0.15.0
+  - Blobtools_env.yml:
+    - blobtools v1.1.1
+    - minimap2 v2.17
+  - Medaka_env.yml:
+  - Pomoxis_env.yml:
+    - pomoxis v0.2.5
+  - Quast_env.yml:
+    - quast v5.0.2
+  - 
 ### Other tools not on Conda
 - **Guppy**: Down and install the version which suits your preference from the Nanopore Community site. This pipeline has been tested with **version 4.0.15**
 - **Busco** docker image:
@@ -113,10 +113,14 @@ docker run -u $(id -u) -v $(pwd):/busco_wd ezlabgva/busco:v5.0.0_cv1
   - RepBase: https://www.girinst.org/server/RepBase/protected/repeatmaskerlibraries/RepBaseRepeatMaskerEdition-20181026.tar.gz
     - You will need an academic license for this
   - Companion
-### Pipeline
-#### Preparation
+### Script and Pipeline Preparation
 - Open the `Whole_pipeline.sh` and enter the paths to the different files, folders indicated:
   - **SCPTS**: Enter the full path to where the package was downloaded and unzipped so that secondary scripts can be called e.g. `/path/to/PknowlesiDeNovo/package/Scripts`
+  - **tConEnv**: Enter the name of main pipeline e.g. `"Main_pipeline_env"`
+  - **bConEnv**: Enter the name of the blobtools conda environment e.g. `"blobtools_env"`
+  - **qConEnv**: Enter the name of the quast conda environment
+  - **pConEnv**: Enter the name of the pomoxis conda environment
+  - **mConEnv**: Enter the name of the medaka conda environment
   - **RPATH**: If you are starting from raw sequencing reads, enter the full path to the raw reads e.g `/path/to/ONT/raw/reads/pass/`. Leave blank otherwise
   - **BSECL**: If your data has already been basecalled then enter **yes**. Otherwise **no**
   - **DPATH**: **If starting from raw reads, leave blank**. If starting from basecalled reads, enter full path here e.g. `/path/to/basecalled/data/folder/experimentFolder`
@@ -141,6 +145,48 @@ docker run -u $(id -u) -v $(pwd):/busco_wd ezlabgva/busco:v5.0.0_cv1
   - **KMER**: Kmer length to use to process files. However, this is only necessary if you are carrying out genomescope/jellyfish of your Illumina reads. *Note: kmer length should only be odd numbers. This pipeline was tuned with a kmer length of 27* e.g. `"27"`
   - **SPEC**: State the species (or closest species) that has been trained on Augustus e.g. `"pfalciparum"`. List can be found here: https://funannotate.readthedocs.io/en/latest/commands.html#funannotate-species` 
   - **ONT**: Enter the full path the the 'bin' of the guppy package you have downloaded e.g. `/path/to/ont-guppy/bin`
-  - **blastDATA**: 
   - **busDock**: Enter full path to the docker image for the busco tool e.g. `"/path/to/busco_v5.0.0_cv1.sif"`
-  - **LINEAGE**: Enter the lineage library you wish to use for busco e.g. `"plasmodium_odb10"` To see the full list available, go to: https://busco-data.ezlab.org/v5/data/lineages/  
+  - **LINEAGE**: Enter the lineage library you wish to use for busco e.g. `"plasmodium_odb10"` To see the full list available, go to: https://busco-data.ezlab.org/v5/data/lineages/ 
+## Pipeline
+### Data Preparation
+This section mainly covers initial parsing, basecalling, demultiplexing and adapter removal from the raw Nanopore reads. 
+- First confirm if the data you wish to process has been previously basecalled.
+  - This allows you to re-try the entire analysis without undertaking the basecalling step
+#### Basecalling
+- This pipeline is tuned for Guppy GPU basecalling. While it is possible to carry out Guppy basecalling on a CPU, I would advise not to attempt this with a Plasmodium whole genome as it is quite simply too slow.
+- If you update your Guppy version between analyses, I would suggest re-running this pipeline to ensure you obtain the best results.
+- `${SCPTS}/Basecalling.sh $RPATH $DPATH $FLOWCELL $KIT $ONT`
+  - Calls the Basecalling script in the provided path to where the package scripts are stored. 
+  - Uses `RPATH` as the input of the raw reads; `DPATH` as the output of the basecalling
+  - Outputs will be saved in the directory called `Basecalling` within the experiment name you have provided 
+#### Demultiplexing
+- While guppy also contains a demultiplexer, qcat was found to be better at correct binning of barcodes
+- However, qcat is now deprecated and **Oxford Nanopore now recommends the use of the guppy demultiplexer rather than qcat**
+- The general set up for the Guppy basecaller (*guppy_barcoder*) is present in the `Demultiplexing.sh`. It can be run by uncommenting the section and changing `KIT2` to `KIT` on the `${SCPTS}/Demultiplexing.sh $DPATH $DEMULP $THREADS $KIT2 $ONT 2>&1 | tee $LOGFF/Demultiplexing/${EXPMT}.txt` command
+#### Adapter Removal
+
+#### Checks
+### De Novo Assembly
+#### Alignment
+#### De novo assembly
+#### Genome size estimation
+#### Decontamination
+### Correction and Polishing
+#### Racon Polishing
+#### Medaka Correction
+#### Pilon Correction
+### [Optional *but recommended*]: Apicoplast and Mitochondrial Separation and Circlarisation
+#### Remove API and MIT
+### RepeatMasking
+#### RepeatMasking
+#### De-chrimerisation
+### Quality Assessment
+#### QUAST
+#### BUSCO
+#### Pomoxis
+#### Assembly-stats
+### Ready for annotation
+## FAQ
+### I haven’t used barcodes. What do I do?
+## Acknowledgements
+## References
