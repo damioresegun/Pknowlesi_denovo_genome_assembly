@@ -7,6 +7,8 @@ User input is needed at various points to confirm which branch of the pipeline t
 I'm hoping that this has been fairly prepped in a fairly straight-forward manner that is somewhat approachable
 However, if you want to tweak the script, the vast majority is written in Bash with some secondary scripts in python.
 Please be aware that the first portion of this script is tuned for barcoded ONT sequencing reads however, it is possible to use non-barcoded ONT sequenced read. 
+## Pipeline
+![image](https://user-images.githubusercontent.com/33520829/112047928-cb046800-8b45-11eb-91a4-068118a73c4e.png)
 ## Table of Contents
   * [Installation](https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Installation)
     + [Processing](https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Installation#processing)
