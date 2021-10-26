@@ -6,7 +6,9 @@ It is important to note that while this pipeline automates alot of commands, it 
 User input is needed at various points to confirm which branch of the pipeline to follow as well as when to continue at certain 'break-points'
 I'm hoping that this has been fairly prepped in a fairly straight-forward manner that is somewhat approachable
 However, if you want to tweak the script, the vast majority is written in Bash with some secondary scripts in python.
-Please be aware that the first portion of this script is tuned for barcoded ONT sequencing reads however, it is possible to use non-barcoded ONT sequenced read. 
+Please be aware that the first portion of this script is tuned for barcoded ONT sequencing reads however, it is possible to use non-barcoded ONT sequenced read.
+## Update on Pipeline
+This repository mainly focuses on the generation of the de novo assemblies and their subsequent improvement and analyses. Further analyses can be found in: https://github.com/damioresegun/DNDS_analyses for duplication and subsitution ratios (Forked from Peter Thorpe). Additionally, analysis outputs can be found on the associated zenodo repository.
 ## Pipeline
 ![image](https://user-images.githubusercontent.com/33520829/112047928-cb046800-8b45-11eb-91a4-068118a73c4e.png)
 ## Table of Contents
@@ -44,12 +46,13 @@ Please be aware that the first portion of this script is tuned for barcoded ONT 
     + [Pomoxis](https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Quality-Assessment#pomoxis)
     + [Assembly-stats](https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Quality-Assessment#assembly-stats)
   * [Ready for annotation](https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Ready-for-annotation)
+  * [Duplication and Substitution Analyses](https://github.com/damioresegun/DNDS_analyses)
   * [FAQ](https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/FAQ)
 ## Data Access
 The completed genomes generated from this pipeline was uploaded to ... with accession code...
 
 ## How to Cite
-
+- Zenodo: DOI:10.5281/zenodo.5598264
 ## Acknowledgements
 - Dr Peter Thorpe helped in various parts of the pipeline development; in particular the repeatmasking process; providing scripts to start off with and adapt
 - Amir Szitenberg for his repeatmasking cookbook which is the backbone for the in-depth repeatmasking process utilised in this pipeline
