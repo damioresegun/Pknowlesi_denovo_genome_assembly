@@ -49,10 +49,13 @@ This repository mainly focuses on the generation of the de novo assemblies and t
   * [Duplication and Substitution Analyses](https://github.com/damioresegun/DNDS_analyses)
   * [FAQ](https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/FAQ)
 ## Data Access
-The completed genomes generated from this pipeline was uploaded to ... with accession code...
+The completed genomes generated from this pipeline was uploaded to Zenodo and NCBI. 
+- Zenodo repository: https://doi.org/10.5281/zenodo.5598264
+- NCBI Accession Code:
 
 ## How to Cite
-- Zenodo: DOI:10.5281/zenodo.5598264
+- Pre-publication: https://doi.org/10.5281/zenodo.5598264
+- Post-publication:
 ## Acknowledgements
 - Dr Peter Thorpe helped in various parts of the pipeline development; in particular the repeatmasking process; providing scripts to start off with and adapt
 - Amir Szitenberg for his repeatmasking cookbook which is the backbone for the in-depth repeatmasking process utilised in this pipeline
