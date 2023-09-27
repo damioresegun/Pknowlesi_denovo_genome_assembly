@@ -1,0 +1,27 @@
+name: Deploy pages
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:           # a free machine-readable name for this job
+    runs-on: ubuntu-latest   # specify the base OS
+    steps:
+      - name: Checkout repo content # fetch the content of the repo
+        uses: actions/checkout@v2
+      - name: Prepare build environment
+        run: |   # multiple Bash commands follow
+          mkdir -p build
+          touch build/.nojekyll
+      - name: Run pandoc
+        uses: docker://pandoc/core:3.1.1
+        with:
+          args: >-
+            --standalone
+            --output=build/index.html
+            README.md
+      - name: Deploy on github pages    # use a 3rd party plugin to upload
+        uses: JamesIves/github-pages-deploy-action@4.1.0
+        with:
+          branch: gh-pages
+          folder: build
