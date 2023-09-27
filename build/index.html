@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>README</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="readme">README</h1>
+<h2 id="overview">Overview</h2>
+<p>This wiki is designed to work as a kind of manual which can hopefully
+take you through the major steps of the pipeline. A pipeline to take
+input data from raw nanopore reads to being ready for manual or
+automated annotation. It is important to note that while this pipeline
+automates alot of commands, it cannot automate everything. User input is
+needed at various points to confirm which branch of the pipeline to
+follow as well as when to continue at certain ‘break-points’ I’m hoping
+that this has been fairly prepped in a fairly straight-forward manner
+that is somewhat approachable However, if you want to tweak the script,
+the vast majority is written in Bash with some secondary scripts in
+python. Please be aware that the first portion of this script is tuned
+for barcoded ONT sequencing reads however, it is possible to use
+non-barcoded ONT sequenced read. ## Update on Pipeline This repository
+mainly focuses on the generation of the de novo assemblies and their
+subsequent improvement and analyses. Further analyses can be found in:
+https://github.com/damioresegun/DNDS_analyses for duplication and
+subsitution ratios (Forked from Peter Thorpe). Additionally, analysis
+outputs can be found on the associated zenodo repository. ## Pipeline
+<img
+src="https://user-images.githubusercontent.com/33520829/112047928-cb046800-8b45-11eb-91a4-068118a73c4e.png"
+alt="image" /> ## Table of Contents * <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Installation">Installation</a>
++ <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Installation#processing">Processing</a>
++ <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Installation#conda">Conda</a>
++ <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Installation#other-tools-not-on-conda">Other
+tools not on Conda</a> * <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Script-and-Pipeline-Preparation">Script
+and Pipeline Preparation</a> * <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Script-and-Pipeline-Preparation">Data
+Preparation</a> + <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Data-Preparation#basecalling">Basecalling</a>
++ <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Data-Preparation#demultiplexing">Demultiplexing</a>
++ <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Data-Preparation#adapter-removal">Adapter
+Removal</a> + <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Data-Preparation#checks">Other
+Checks</a> * <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/De-Novo-Assembly">De
+Novo Assembly</a> + <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/De-Novo-Assembly#alignment">Alignment</a>
++ <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/De-Novo-Assembly#de-novo-assembly">De
+novo assembly</a> * <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Genome-size-estimation">Genome
+size estimation</a> + <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Genome-size-estimation#known-issue">Known
+issue:</a> * <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Decontamination">Decontamination</a>
++ <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Decontamination#known-issues">Known
+Issues:</a> * <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Correction-and-Polishing">Correction
+and Polishing</a> + <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Correction-and-Polishing#racon-polishing">Racon
+Polishing</a> + <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Correction-and-Polishing#medaka-correction">Medaka
+Correction</a> + <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Correction-and-Polishing#pilon-correction">Pilon
+Correction</a> - <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Correction-and-Polishing#known-issue">Known
+Issue</a> * <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/%5BOptional-but-recommended%5D:-Apicoplast-and-Mitochondrial-Separation">Optional:
+Apicoplast and Mitochondrial Separation</a> + <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/%5BOptional-but-recommended%5D:-Apicoplast-and-Mitochondrial-Separation#remove-api-and-mit">Remove
+API and MIT</a> + <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/%5BOptional-but-recommended%5D:-Apicoplast-and-Mitochondrial-Separation#circularisation-and-completion">Circularisation
+and Completion</a> * <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/RepeatMasking">RepeatMasking</a>
++ <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/RepeatMasking#known-issues">Known
+issues</a> * <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/De-chimerisation">De-chimerisation</a>
+* <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Quality-Assessment">Quality
+Assessment</a> + <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Quality-Assessment#quast">QUAST</a>
++ <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Quality-Assessment#busco">BUSCO</a>
++ <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Quality-Assessment#pomoxis">Pomoxis</a>
++ <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Quality-Assessment#assembly-stats">Assembly-stats</a>
+* <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/Ready-for-annotation">Ready
+for annotation</a> * <a
+href="https://github.com/damioresegun/DNDS_analyses">Duplication and
+Substitution Analyses</a> * <a
+href="https://github.com/damioresegun/Pknowlesi_denovo_genome_assembly/wiki/FAQ">FAQ</a>
+## Data Access The completed genomes generated from this pipeline was
+uploaded to Zenodo and NCBI. - Zenodo repository:
+https://doi.org/10.5281/zenodo.5598264 - NCBI Accession Code:</p>
+<h2 id="how-to-cite">How to Cite</h2>
+<ul>
+<li>Pre-publication: https://doi.org/10.5281/zenodo.5598264</li>
+<li>Post-publication: ## Acknowledgements</li>
+<li>Dr Peter Thorpe helped in various parts of the pipeline development;
+in particular the repeatmasking process; providing scripts to start off
+with and adapt</li>
+<li>Amir Szitenberg for his repeatmasking cookbook which is the backbone
+for the in-depth repeatmasking process utilised in this pipeline</li>
+<li>Dr Janet Cox-Singh helped in guiding the biological necessities
+required for this pipeline ## Contact</li>
+<li>Email: dro@st-andrews.ac.uk</li>
+<li>Alternative Email: damioresegun@gmail.com</li>
+<li>Twitter: <span class="citation"
+data-cites="dami_oresegun">@dami_oresegun</span></li>
+</ul>
+</body>
+</html>
